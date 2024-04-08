@@ -45,8 +45,11 @@ def get_contract_info(rest_api_url: str, contract_addr: str) -> dict:
     return response.json()
 
 
-def fmt_time(now: datetime, format: str = "%Y_%b_%d_%H-%M-%S") -> str:
+fileFmt = "%Y_%b_%d"
+
+
+def fmt_time(now: datetime, format: str = fileFmt) -> str:
     """
-    default format: 2024_apr_08_01-19-26
+    default format: 2024_Apr_08
     """
     return now.astimezone(datetime.timezone.utc).strftime(format)
