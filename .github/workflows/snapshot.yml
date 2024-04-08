@@ -20,9 +20,11 @@ jobs:
 
       - run: |
           python3 main.py celestine_sloth_society
+          python3 main.py badkids
+          python3 main.py bitkids
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-            commit_message: Auto-Snapshot - $(date)
-            branch: testnew
+            commit_message: Auto-Snapshot
+            branch: testall
             commit_options: '--no-verify --signoff'
