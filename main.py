@@ -33,7 +33,10 @@ PROJECTS = {
         "stars10n0m58ztlr9wvwkgjuek2m2k0dn5pgrhfw9eahg9p8e5qtvn964suc995j", 1, 2_500
     ),
     "racoon": Project(
-        "stars1hsl7mqpntmskc88mkw28ywz66m9qtn9z7skmpp8lal6uwjfngerqr45km9", 1, 1333
+        "stars1hsl7mqpntmskc88mkw28ywz66m9qtn9z7skmpp8lal6uwjfngerqr45km9", 1, 1_333
+    ),
+    "cryptoniummaker": Project(
+        "stars1g2ptrqnky5pu70r3g584zpk76cwqplyc63e8apwayau6l3jr8c0sp9q45u", 1, 5_500
     ),
 }
 

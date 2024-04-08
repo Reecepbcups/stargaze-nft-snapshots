@@ -23,6 +23,7 @@ jobs:
           python3 main.py celestine_sloth_society
           python3 main.py badkids
           python3 main.py bitkids
+          python3 main.py cryptoniummaker
           python3 main.py racoon
 
       - uses: stefanzweifel/git-auto-commit-action@v4
