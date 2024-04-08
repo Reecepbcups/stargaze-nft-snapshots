@@ -26,6 +26,10 @@ jobs:
           python3 main.py cryptoniummaker
           python3 main.py afterthefilter
           python3 main.py racoon
+          python3 main.py pixelsquids
+          python3 main.py sneaky
+          python3 main.py geckies
+          python3 main.py rektbulls
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
