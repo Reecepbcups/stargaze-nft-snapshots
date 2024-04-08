@@ -1,0 +1,26 @@
+name: snapshot
+
+# TODO: cronjob
+on:
+  pull_request:
+
+jobs:
+  link-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      - run: pip install -r requirements.txt
+
+
+      - run: python3 main.py celestine_sloth_society
+
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+            commit_message: Auto-Snapshot - $(date)
+            branch: testnew
+            commit_options: '--no-verify --signoff'
