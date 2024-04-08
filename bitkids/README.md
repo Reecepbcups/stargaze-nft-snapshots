@@ -1,3 +1,0 @@
-# Bitkids
-> address: stars1pqcldy82fcmptkzvzakwlv3gtpgupewc3e3q598mg5nrr25rv40qpu0z5v
-> marketplace: https://www.stargaze.zone/m/stars1pqcldy82fcmptkzvzakwlv3gtpgupewc3e3q598mg5nrr25rv40qpu0z5v/tokens
