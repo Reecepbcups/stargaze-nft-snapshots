@@ -11,6 +11,7 @@ class Project:
     start_idx: int
     end_idx: int
     name: str = ""
+    dao_voting_module: str = ""
 
     def __init__(self, address: str, start: int, end: int):
         self.contract_addr = address
@@ -19,6 +20,13 @@ class Project:
 
     def name_override(self, name: str) -> "Project":
         self.name = name
+        return self
+
+    # starsd q wasm contract-state smart stars17fdkf8ccpuj2v677w3f246hwku5anwt5800wm0t7prrv5gn8r0ys298hl2 '{"dump_state":{}}'
+    # - voting module
+    def set_dao_voting_module(self, dao_addr: str) -> "Project":
+        # starsd q wasm contract-state smart stars1yyl590s37cpdm3v25p4vjrzgtxjgm6rlkc0584gu898syqewcc0q4zllks '{"dump_state":{}}'
+        self.dao_voting_module = dao_addr
         return self
 
 

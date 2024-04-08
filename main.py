@@ -34,6 +34,8 @@ PROJECTS = {
     ),
     "racoon": Project(
         "stars1hsl7mqpntmskc88mkw28ywz66m9qtn9z7skmpp8lal6uwjfngerqr45km9", 1, 1_333
+    ).set_dao_voting_module(
+        "stars1yyl590s37cpdm3v25p4vjrzgtxjgm6rlkc0584gu898syqewcc0q4zllks"
     ),
     "cryptoniummaker": Project(
         "stars1g2ptrqnky5pu70r3g584zpk76cwqplyc63e8apwayau6l3jr8c0sp9q45u", 1, 5_500
@@ -56,7 +58,7 @@ PROJECTS = {
 }
 
 
-def get_rest_api_endpoint() -> str:
+def get_stargaze_rest_api_endpoint() -> str:
     # https://cosmos.directory/stargaze/nodes
     rpcs = [
         "https://stargaze-api.polkachu.com",
@@ -124,7 +126,7 @@ async def async_holders():
     urls = {}
     for i in range(PROJECT.start_idx, PROJECT.end_idx + 1):
         # TODO: Don't get the URL here, instead we can generate that randomly in fetch data. Then handle there w/ round robin.
-        urls[i] = get_url(get_rest_api_endpoint(), PROJECT.contract_addr, i)
+        urls[i] = get_url(get_stargaze_rest_api_endpoint(), PROJECT.contract_addr, i)
 
     async with AsyncClient(timeout=30.0) as client:
         tasks = [fetch_data(client, url, key, results) for key, url in urls.items()]
@@ -144,7 +146,7 @@ async def async_holders():
         holders[owner].append(k)
 
     # get parent contract info
-    info = get_contract_info(get_rest_api_endpoint(), PROJECT.contract_addr)
+    info = get_contract_info(get_stargaze_rest_api_endpoint(), PROJECT.contract_addr)
 
     now = datetime.datetime.now()
     fileName = f"{fmt_time(now)}.json"
