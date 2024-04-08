@@ -1,0 +1,31 @@
+name: snapshot
+
+on:
+  # pull_request:
+  schedule:
+    - cron: "0 0 * * *" # At the end of every day
+
+permissions:
+    contents: write
+
+jobs:
+  snap:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      - run: pip install -r requirements.txt
+
+      - run: |
+          python3 main.py celestine_sloth_society
+          python3 main.py badkids
+          python3 main.py bitkids
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+            commit_message: Auto-Snapshot
+            branch: main
+            commit_options: '--no-verify --signoff'
