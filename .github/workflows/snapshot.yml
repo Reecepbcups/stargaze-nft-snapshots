@@ -28,5 +28,5 @@ jobs:
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
             commit_message: Auto-Snapshot
-            branch: testall
+            branch: main
             commit_options: '--no-verify --signoff'
