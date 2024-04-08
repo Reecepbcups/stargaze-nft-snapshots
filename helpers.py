@@ -49,4 +49,4 @@ def fmt_time(now: datetime, format: str = "%Y_%b_%d_%H-%M-%S") -> str:
     """
     default format: 2024_apr_08_01-19-26
     """
-    return now.strftime(format)
+    return now.astimezone(datetime.timezone.utc).strftime(format)
