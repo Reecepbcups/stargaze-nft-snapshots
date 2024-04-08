@@ -41,6 +41,18 @@ PROJECTS = {
     "afterthefilter": Project(
         "stars1nf53vw5mulj9y6f66vxj2j98mkpny5nm46lkwytjk9wuj6ccsp2s34n6na", 1, 9_999
     ),
+    "pixelsquids": Project(
+        "stars1xca9ex0zgacct0fu0lzqzqrve0ys74aa345d2cxu3zrl7rpke9mqh528at", 1, 4_444
+    ),
+    "sneaky": Project(
+        "stars1429tk3pj6nrta2y34gx0njrm8zum53v05dyjawlsk6w84wqugsnshf2n3x", 1, 999
+    ),
+    "geckies": Project(
+        "stars166kqwcu8789xh7nk07fcrdzek54205u8gzas684lnas2kzalksqsg5xhqf", 1, 5_000
+    ),
+    "rektbulls": Project(
+        "stars1ts5ymnra9wv27eqty8x88lhty4svea2j6jkw20t3mnnne6jwk5fqplsrdg", 1, 2269
+    ),
 }
 
 
@@ -96,7 +108,7 @@ async def fetch_data(client: AsyncClient, url: str, token_id: int, results: dict
 
         if try_again[token_id] < 2:
             print(
-                f"[!] Retry: {token_id}: {response.status_code} status. Trying again in 5 seconds (May be burned)."
+                f"[!] Retry: {token_id}: {response.status_code} status. Trying again in 5 seconds (May be burned, or in a DAO)."
             )
             await asyncio.sleep(5)
             await fetch_data(client, url, token_id, results)
