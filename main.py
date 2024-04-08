@@ -32,6 +32,9 @@ PROJECTS = {
     "celestine_sloth_society": Project(
         "stars10n0m58ztlr9wvwkgjuek2m2k0dn5pgrhfw9eahg9p8e5qtvn964suc995j", 1, 2_500
     ),
+    "racoon": Project(
+        "stars1hsl7mqpntmskc88mkw28ywz66m9qtn9z7skmpp8lal6uwjfngerqr45km9", 1, 1333
+    ),
 }
 
 
