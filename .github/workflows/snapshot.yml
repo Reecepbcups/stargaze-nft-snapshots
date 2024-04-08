@@ -1,10 +1,9 @@
 name: snapshot
 
-# TODO: cronjob
 on:
-  pull_request:
-  # schedule:
-  #   - cron: "0 0 * * *" # At the end of every day
+  # pull_request:
+  schedule:
+    - cron: "0 0 * * *" # At the end of every day
 
 permissions:
     contents: write
