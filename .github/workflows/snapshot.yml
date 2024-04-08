@@ -24,6 +24,7 @@ jobs:
           python3 main.py badkids
           python3 main.py bitkids
           python3 main.py cryptoniummaker
+          python3 main.py afterthefilter
           python3 main.py racoon
 
       - uses: stefanzweifel/git-auto-commit-action@v4

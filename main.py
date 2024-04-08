@@ -38,6 +38,9 @@ PROJECTS = {
     "cryptoniummaker": Project(
         "stars1g2ptrqnky5pu70r3g584zpk76cwqplyc63e8apwayau6l3jr8c0sp9q45u", 1, 5_500
     ),
+    "afterthefilter": Project(
+        "stars1nf53vw5mulj9y6f66vxj2j98mkpny5nm46lkwytjk9wuj6ccsp2s34n6na", 1, 9_999
+    ),
 }
 
 
