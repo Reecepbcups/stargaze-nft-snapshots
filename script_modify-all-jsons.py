@@ -40,7 +40,7 @@ def main():
 
             holders = data.get("holders", {})
             data["holders"] = {
-                k: v
+                k: sorted(v)
                 for k, v in sorted(
                     holders.items(), key=lambda item: len(item[1]), reverse=True
                 )

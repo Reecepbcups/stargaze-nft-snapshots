@@ -143,6 +143,12 @@ async def async_holders():
 
         holders[owner].append(k)
 
+    # sort holders by the most NFTs (at the top) to least (bottom) in the file.
+    holders = {
+        k: sorted(v)
+        for k, v in sorted(holders.items(), key=lambda item: len(item[1]), reverse=True)
+    }
+
     # get parent contract info
     info = get_contract_info(get_rest_api_endpoint(), PROJECT.contract_addr)
 
@@ -160,6 +166,7 @@ async def async_holders():
         "w",
     ) as f:
         print("Saving results to file")
+
         json.dump(
             {
                 "contract": {
