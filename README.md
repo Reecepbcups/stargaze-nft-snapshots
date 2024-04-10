@@ -19,3 +19,29 @@ Automatic daily NFT holder snapshots for major projects on [Stargaze](https://ww
 
 ## Contact
 > <https://twitter.com/Reecepbcups_>
+
+## Schema
+
+```json
+{
+    "contract": {
+        "address": "stars1429tk3pj6nrta2y34gx0njrm8zum53v05dyjawlsk6w84wqugsnshf2n3x",
+        "name": "Collection Name",
+        "code_id": "41",
+        "unique_holders": 382
+    },
+    "time": "2024-04-09 00:06:37",
+    "range": {
+        "start": 1,
+        "end": 999
+    },
+    "holders": {
+        "stars1...": [
+            1, 3
+        ],
+        "stars1...": [
+            2,
+        ],
+    }
+}
+```
