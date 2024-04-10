@@ -1,10 +1,10 @@
-import asyncio
-import datetime
 import json
 import os
-import random
 
 from helpers import CompactJSONEncoder
+
+# Call this only to perform mass formatting for all the JSON files.
+
 
 PROJECTS = [
     "badkids",
@@ -37,6 +37,14 @@ def main():
 
             with open(fp, "r") as f:
                 data = json.load(f)
+
+            holders = data.get("holders", {})
+            data["holders"] = {
+                k: v
+                for k, v in sorted(
+                    holders.items(), key=lambda item: len(item[1]), reverse=True
+                )
+            }
 
             print(f"Processing {fp}...")
 
