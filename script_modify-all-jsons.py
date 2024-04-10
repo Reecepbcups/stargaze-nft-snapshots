@@ -1,10 +1,10 @@
-import asyncio
-import datetime
 import json
 import os
-import random
 
 from helpers import CompactJSONEncoder
+
+# Call this only to perform mass formatting for all the JSON files.
+
 
 PROJECTS = [
     "badkids",
