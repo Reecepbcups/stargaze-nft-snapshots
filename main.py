@@ -15,7 +15,7 @@ import random
 
 from httpx import AsyncClient
 
-from helpers import Project, fmt_time, get_contract_info, get_url
+from helpers import CompactJSONEncoder, Project, fmt_time, get_contract_info, get_url
 
 curr_dir = os.path.dirname(os.path.realpath(__file__))
 
@@ -173,7 +173,7 @@ async def async_holders():
                 "holders": holders,
             },
             f,
-            indent=4,
+            cls=CompactJSONEncoder,
         )
 
 
