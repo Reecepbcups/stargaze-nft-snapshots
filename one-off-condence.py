@@ -38,6 +38,14 @@ def main():
             with open(fp, "r") as f:
                 data = json.load(f)
 
+            holders = data.get("holders", {})
+            data["holders"] = {
+                k: v
+                for k, v in sorted(
+                    holders.items(), key=lambda item: len(item[1]), reverse=True
+                )
+            }
+
             print(f"Processing {fp}...")
 
             # save data back to file with the cls CompactJSONEncoder
