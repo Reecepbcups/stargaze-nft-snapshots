@@ -95,18 +95,19 @@ try_again: dict[str, int] = {}
 
 
 async def fetch_data(client: AsyncClient, url: str, token_id: int, results: dict):
-    # async with httpx.AsyncClient() as client:
     print(f"Fetching {token_id} from {url}")
-
-    response = await client.get(url)
+    try:
+        response = await client.get(url)
+    except Exception as e:
+        print(f"Error fetching {token_id}: {e}")
+        response.status_code = 1337
 
     if response.status_code == 200:
         results[token_id] = response.json()
-
     else:
         try_again[token_id] = try_again.get(token_id, 0) + 1
 
-        if try_again[token_id] < 2:
+        if try_again[token_id] < 3:
             print(
                 f"[!] Retry: {token_id}: {response.status_code} status. Trying again in 5 seconds (May be burned, or in a DAO)."
             )
