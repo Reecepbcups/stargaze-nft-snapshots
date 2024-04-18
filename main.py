@@ -96,13 +96,17 @@ try_again: dict[str, int] = {}
 
 async def fetch_data(client: AsyncClient, url: str, token_id: int, results: dict):
     print(f"Fetching {token_id} from {url}")
+
+    success = True
     try:
         response = await client.get(url)
+        if response.status_code != 200:
+            success = False
     except Exception as e:
         print(f"Error fetching {token_id}: {e}")
-        response.status_code = 1337
+        success = False
 
-    if response.status_code == 200:
+    if success:
         results[token_id] = response.json()
     else:
         try_again[token_id] = try_again.get(token_id, 0) + 1
