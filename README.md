@@ -1,6 +1,6 @@
 # Stargaze NFT Snapshots
 
-Automatic daily NFT holder snapshots for major projects on [Stargaze](https://www.stargaze.zone/).
+Automatic NFT holder snapshots for major projects on [Stargaze](https://www.stargaze.zone/) every 3 days.
 
 ## Collections
 - [After The Filter](https://www.stargaze.zone/m/afterthefilter/tokens)

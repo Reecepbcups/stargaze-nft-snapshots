@@ -3,7 +3,7 @@ name: snapshot
 on:
   # pull_request:
   schedule:
-    - cron: "0 0 * * *" # At the end of every day
+    - cron: "0 0 */3 * *" # every ~3 days (excl if prev month had 31)
 
 permissions:
     contents: write
