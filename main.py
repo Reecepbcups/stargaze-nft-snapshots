@@ -13,7 +13,7 @@ import json
 import os
 import random
 
-from httpx import AsyncClient
+from httpx import AsyncClient, Response
 
 from helpers import CompactJSONEncoder, Project, fmt_time, get_contract_info, get_url
 
@@ -56,20 +56,50 @@ PROJECTS = {
     "cryptodungeon": Project(
         "stars1cctq6q3caw050sk6wfhruq2dlyslunuuhl0hq6yy32g4qkn5yn4qm6r5wg", 1, 400
     ),
+    "mad_scientist_stars": Project(
+        "stars1v8avajk64z7pppeu45ce6vv8wuxmwacdff484lqvv0vnka0cwgdqdk64sf", 1, 10_000
+    ),
+    # "mad_scientist_osmo": Project(  # only manually run for now
+    #     "osmo16pwjh09s662a0j2ssmzauyvkvagjwd9kpwc0mtamlwr8dtznlhfqcweap6", 1, 10_000
+    # ),
 }
 
 
-def get_rest_api_endpoint() -> str:
+def get_rest_api_endpoint(network: str = "stars") -> str:
     # https://cosmos.directory/stargaze/nodes
-    rpcs = [
-        "https://stargaze-api.polkachu.com",
-        "https://api-stargaze.pupmos.network",
-        "https://api.stargaze.silentvalidator.com",
-        "https://api-stargaze.d-stake.xyz",
-        "https://stargaze-api.ibs.team",
-    ]
 
-    return random.choice(rpcs)
+    if network.startswith("osmo"):
+        return random.choice(
+            [
+                "https://api.osmosis.validatus.com",
+                "https://osmosis-api.polkachu.com",
+                "https://osmosis.rest.stakin-nodes.com",
+                "https://rest.osmosis.goldenratiostaking.net",
+                "https://community.nuxian-node.ch:6797/osmosis/crpc",
+                "https://osmosis-lcd.quickapi.com",
+                "https://osmosis-api.stake-town.com",
+                "https://rest-osmosis.ecostake.com",
+                "https://osmosis-api.w3coins.io",
+                "https://lcd.osmosis.zone",
+                "https://api-osmosis.cosmos-spaces.cloud",
+                "https://osmosis-api.lavenderfive.com",
+                "https://osmosis-mainnet-lcd.autostake.com",
+                "https://osmosis-rest.publicnode.com",
+                "https://rest.cros-nest.com/osmosis",
+                "https://osmosis-rest.interstellar-lounge.org",
+                "https://api-osmosis-01.stakeflow.io",
+            ]
+        )
+
+    return random.choice(
+        [
+            "https://stargaze-api.polkachu.com",
+            "https://api-stargaze.pupmos.network",
+            "https://api.stargaze.silentvalidator.com",
+            "https://api-stargaze.d-stake.xyz",
+            "https://stargaze-api.ibs.team",
+        ]
+    )
 
 
 PROJECT_NAME = ""
@@ -101,6 +131,7 @@ async def fetch_data(client: AsyncClient, url: str, token_id: int, results: dict
     print(f"Fetching {token_id} from {url}")
 
     success = True
+    response: Response = None
     try:
         response = await client.get(url)
         if response.status_code != 200:
@@ -114,16 +145,17 @@ async def fetch_data(client: AsyncClient, url: str, token_id: int, results: dict
     else:
         try_again[token_id] = try_again.get(token_id, 0) + 1
 
-        if try_again[token_id] < 3:
-            print(
-                f"[!] Retry: {token_id}: {response.status_code} status. Trying again in 5 seconds (May be burned, or in a DAO)."
-            )
-            await asyncio.sleep(5)
-            await fetch_data(client, url, token_id, results)
-        else:
-            print(
-                f"Error fetching {token_id}: {response.status_code} status. This NFT may not exist. Either END_IDX {PROJECT.end_idx} is too high, or the NFT was burned."
-            )
+        if response != None:
+            if try_again[token_id] < 3:
+                print(
+                    f"[!] Retry: {token_id}: {response.status_code} status. Trying again in 5 seconds (May be burned, or in a DAO)."
+                )
+                await asyncio.sleep(5)
+                await fetch_data(client, url, token_id, results)
+            else:
+                print(
+                    f"Error fetching {token_id}: {response.status_code} status. This NFT may not exist. Either END_IDX {PROJECT.end_idx} is too high, or the NFT was burned."
+                )
 
 
 async def async_holders():
@@ -132,7 +164,9 @@ async def async_holders():
     urls = {}
     for i in range(PROJECT.start_idx, PROJECT.end_idx + 1):
         # TODO: Don't get the URL here, instead we can generate that randomly in fetch data. Then handle there w/ round robin.
-        urls[i] = get_url(get_rest_api_endpoint(), PROJECT.contract_addr, i)
+        urls[i] = get_url(
+            get_rest_api_endpoint(PROJECT.contract_addr), PROJECT.contract_addr, i
+        )
 
     async with AsyncClient(timeout=30.0) as client:
         tasks = [fetch_data(client, url, key, results) for key, url in urls.items()]
