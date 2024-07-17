@@ -53,6 +53,9 @@ PROJECTS = {
     "rektbulls": Project(
         "stars1ts5ymnra9wv27eqty8x88lhty4svea2j6jkw20t3mnnne6jwk5fqplsrdg", 1, 2269
     ),
+    "cryptodungeon": Project(
+        "stars1cctq6q3caw050sk6wfhruq2dlyslunuuhl0hq6yy32g4qkn5yn4qm6r5wg", 1, 400
+    ),
 }
 
 
