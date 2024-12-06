@@ -93,11 +93,14 @@ def get_rest_api_endpoint(network: str = "stars") -> str:
 
     return random.choice(
         [
-            "https://stargaze-api.polkachu.com",
-            "https://api-stargaze.pupmos.network",
             "https://api.stargaze.silentvalidator.com",
-            "https://api-stargaze.d-stake.xyz",
             "https://stargaze-api.ibs.team",
+            # "https://stargaze-api.chainroot.io", # 429s
+            "https://stargaze-api.ramuchi.tech",
+            "https://stargaze-api.kleomedes.network",
+            "https://stargaze-api.ibs.team",
+            "https://api-stargaze.d-stake.xyz",
+            # "https://stargaze-api.polkachu.com",
         ]
     )
 
@@ -133,11 +136,12 @@ async def fetch_data(client: AsyncClient, url: str, token_id: int, results: dict
     success = True
     response: Response = None
     try:
+        # fetching raw state would be so much nicer yea?
         response = await client.get(url)
         if response.status_code != 200:
             success = False
     except Exception as e:
-        print(f"Error fetching {token_id}: {e}")
+        print(f"Error fetching {token_id}: Exception: {e} (url: {url} )")
         success = False
 
     if success:
@@ -150,11 +154,11 @@ async def fetch_data(client: AsyncClient, url: str, token_id: int, results: dict
                 print(
                     f"[!] Retry: {token_id}: {response.status_code} status. Trying again in 5 seconds (May be burned, or in a DAO)."
                 )
-                await asyncio.sleep(5)
+                await asyncio.sleep(15)
                 await fetch_data(client, url, token_id, results)
             else:
                 print(
-                    f"Error fetching {token_id}: {response.status_code} status. This NFT may not exist. Either END_IDX {PROJECT.end_idx} is too high, or the NFT was burned."
+                    f"Final: Error fetching {token_id}: {response.status_code} status. This NFT may not exist. Either END_IDX {PROJECT.end_idx} is too high, or the NFT was burned."
                 )
 
 
@@ -168,7 +172,7 @@ async def async_holders():
             get_rest_api_endpoint(PROJECT.contract_addr), PROJECT.contract_addr, i
         )
 
-    async with AsyncClient(timeout=30.0) as client:
+    async with AsyncClient(timeout=60.0) as client:
         tasks = [fetch_data(client, url, key, results) for key, url in urls.items()]
         await asyncio.gather(*tasks)
 
